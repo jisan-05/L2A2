@@ -2,7 +2,8 @@ import express, { Request, Response } from "express";
 import { Pool } from "pg";
 import config from "./config/index";
 import initDB from "./config/db";
-import { authRoutes } from "./modules/Auth/auth.routes";
+import { usersRoutes } from "./modules/users/users.routes";
+import { authRouter } from "./modules/Auth/auth.routes";
 
 const app = express();
 const port = 5000;
@@ -10,7 +11,9 @@ console.log(config.port);
 
 app.use(express.json());
 
-app.use("/api/v1/auth",authRoutes)
+app.use("/api/v1/auth",usersRoutes)
+
+app.use("/api/v1/auth",authRouter)
 
 // initial db
 initDB();

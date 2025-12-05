@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { pool } from "../../config/db";
-import bcrypt from "bcryptjs";
 
-const createUser = async (payload:Record<string,unknown>) => {
+import bcrypt from "bcryptjs";
+import { pool } from "../../config/db";
+
+const createUser = async(payload:Record<string,unknown>) => {
   const { name, email, password, phone, role } = payload;
   const hashedPass = await bcrypt.hash(password as string,10)
   const result = await pool.query(
@@ -12,6 +13,6 @@ const createUser = async (payload:Record<string,unknown>) => {
   return result;
 };
 
-export const authServices = {
+export const usersServices = {
   createUser
 }
