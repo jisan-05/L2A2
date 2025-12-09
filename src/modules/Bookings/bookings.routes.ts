@@ -9,6 +9,6 @@ router.post('/',auth('admin','customer'), bookingsController.addBookings)
  
 router.get('/',auth("admin", "customer"),bookingsController.getBookings )
 
-// router.put('/:bookingId',bookingsController.updateBookings )
+router.put('/:bookingId',auth(),bookingsController.updateBookings )
 
 export const bookingsRouter = router; 

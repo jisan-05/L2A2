@@ -38,7 +38,7 @@ const getBookings = async (req: Request, res: Response) => {
         loggedInUser.role === "admin"
           ? "Bookings retrieved successfully"
           : "Your bookings retrieved successfully",
-      data: result.rows,
+      data: result
     });
   } catch (error: any) {
     res.status(500).json({
@@ -48,7 +48,25 @@ const getBookings = async (req: Request, res: Response) => {
   }
 };
 
+const updateBookings = async (req: Request, res: Response) => {
+  const user = req.user as JwtPayload;
+
+  try {
+    const result = await bookingsServices.updateBookings(
+      req.params.bookingId as string,
+      user?.role,
+      req.body.status
+    );
+    res.status(200).json({
+      success: true,
+      message: "Booking cancelled successfully",
+      data: result,
+    });
+  } catch (error) {}
+};
+
 export const bookingsController = {
   addBookings,
   getBookings,
+  updateBookings,
 };
